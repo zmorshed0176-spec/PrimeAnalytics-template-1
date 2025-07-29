@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimeAnalytics AI Agent - Website Analytics Audit</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .loading-spinner {
+            display: none;
+        }
+        .loading-spinner.active {
+            display: inline-block;
+        }
+        .result-section {
+            display: none;
+        }
+        .result-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold">PrimeAnalytics AI Agent</h1>
+                    <p class="text-blue-100 mt-1">Automated Website Analytics Audit & GTM Setup</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-blue-100">Professional Analytics Consulting</div>
+                    <div class="text-sm">Powered by AI</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Input Section -->
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg card-shadow p-8 mb-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Website Analytics Audit</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">
+                        Get a comprehensive analytics audit of any website including CMS detection, 
+                        current tracking analysis, conversion opportunities, and a ready-to-use GTM container.
+                    </p>
+                </div>
+
+                <form id="analyzeForm" class="space-y-6">
+                    <div>
+                        <label for="websiteUrl" class="block text-sm font-medium text-gray-700 mb-2">
+                            Website URL
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="url" 
+                                id="websiteUrl" 
+                                name="url"
+                                placeholder="https://example.com"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                required
+                            >
+                            <i class="fas fa-globe absolute right-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        id="analyzeBtn"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center"
+                    >
+                        <span id="analyzeText">
+                            <i class="fas fa-search mr-2"></i>
+                            Start Analytics Audit
+                        </span>
+                        <span id="loadingText" class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin mr-2"></i>
+                            Analyzing Website...
+                        </span>
+                    </button>
+                </form>
+
+                <!-- Progress Indicator -->
+                <div id="progressSection" class="mt-6" style="display: none;">
+                    <div class="bg-gray-200 rounded-full h-2 mb-4">
+                        <div id="progressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <div id="progressText" class="text-sm text-gray-600 text-center">
+                        Initializing analysis...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsSection" class="result-section space-y-6">
+                <!-- Executive Summary -->
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-chart-line mr-2 text-blue-600"></i>
+                        Executive Summary
+                    </h3>
+                    <div id="executiveSummary" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- Summary content will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Technical Findings -->
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-cogs mr-2 text-green-600"></i>
+                        Technical Findings
+                    </h3>
+                    <div id="technicalFindings">
+                        <!-- Technical findings content will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Analytics Audit -->
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-analytics mr-2 text-purple-600"></i>
+                        Analytics Audit
+                    </h3>
+                    <div id="analyticsAudit">
+                        <!-- Analytics audit content will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Conversion Opportunities -->
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-bullseye mr-2 text-orange-600"></i>
+                        Conversion Opportunities
+                    </h3>
+                    <div id="conversionOpportunities">
+                        <!-- Conversion opportunities content will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Implementation Plan -->
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-tasks mr-2 text-indigo-600"></i>
+                        Implementation Plan
+                    </h3>
+                    <div id="implementationPlan">
+                        <!-- Implementation plan content will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Download Section -->
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-download mr-2 text-red-600"></i>
+                        Download Files
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="downloadSection">
+                        <!-- Download links will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Section -->
+            <div id="errorSection" class="result-section">
+                <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                    <div class="flex items-center">
+                        <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
+                        <h3 class="text-lg font-medium text-red-800">Analysis Error</h3>
+                    </div>
+                    <p id="errorMessage" class="mt-2 text-red-700"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 PrimeAnalytics Solutions. All rights reserved.</p>
+            <p class="text-gray-400 mt-2">Professional Analytics Consulting & Implementation</p>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission handler
+        document.getElementById('analyzeForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const url = document.getElementById('websiteUrl').value;
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const analyzeText = document.getElementById('analyzeText');
+            const loadingText = document.getElementById('loadingText');
+            const progressSection = document.getElementById('progressSection');
+            const resultsSection = document.getElementById('resultsSection');
+            const errorSection = document.getElementById('errorSection');
+            
+            // Reset UI
+            resultsSection.classList.remove('active');
+            errorSection.classList.remove('active');
+            
+            // Show loading state
+            analyzeBtn.disabled = true;
+            analyzeText.style.display = 'none';
+            loadingText.classList.add('active');
+            progressSection.style.display = 'block';
+            
+            // Simulate progress
+            updateProgress(10, 'Crawling website...');
+            
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ url: url })
+                });
+                
+                updateProgress(50, 'Analyzing CMS and technology stack...');
+                
+                const data = await response.json();
+                
+                updateProgress(80, 'Generating GTM container...');
+                
+                if (data.success) {
+                    updateProgress(100, 'Analysis complete!');
+                    setTimeout(() => {
+                        populateResults(data);
+                        progressSection.style.display = 'none';
+                        resultsSection.classList.add('active');
+                    }, 1000);
+                } else {
+                    throw new Error(data.error || 'Analysis failed');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('errorMessage').textContent = error.message;
+                progressSection.style.display = 'none';
+                errorSection.classList.add('active');
+            } finally {
+                // Reset button
+                analyzeBtn.disabled = false;
+                analyzeText.style.display = 'inline';
+                loadingText.classList.remove('active');
+            }
+        });
+        
+        function updateProgress(percentage, text) {
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = text;
+        }
+        
+        function populateResults(data) {
+            const report = data.report;
+            
+            // Populate Executive Summary
+            populateExecutiveSummary(report.executive_summary);
+            
+            // Populate Technical Findings
+            populateTechnicalFindings(report.technical_findings);
+            
+            // Populate Analytics Audit
+            populateAnalyticsAudit(report.analytics_audit);
+            
+            // Populate Conversion Opportunities
+            populateConversionOpportunities(report.conversion_opportunities);
+            
+            // Populate Implementation Plan
+            populateImplementationPlan(report.implementation_plan);
+            
+            // Populate Download Section
+            populateDownloadSection(data.gtm_filename, data.report_filename);
+        }
+        
+        function populateExecutiveSummary(summary) {
+            const container = document.getElementById('executiveSummary');
+            container.innerHTML = `
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-600">${summary.audit_score}/100</div>
+                    <div class="text-sm text-gray-600">Audit Score</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-orange-600">${summary.critical_issues}</div>
+                    <div class="text-sm text-gray-600">Critical Issues</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600">${summary.optimization_opportunities}</div>
+                    <div class="text-sm text-gray-600">Opportunities</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-lg font-bold text-purple-600">${summary.cms_platform}</div>
+                    <div class="text-sm text-gray-600">CMS Platform</div>
+                </div>
+            `;
+        }
+        
+        function populateTechnicalFindings(findings) {
+            const container = document.getElementById('technicalFindings');
+            const performance = findings.website_performance;
+            const technical = findings.technical_setup;
+            
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-3">Website Performance</h4>
+                        <ul class="space-y-2">
+                            <li class="flex justify-between">
+                                <span>Page Load Time:</span>
+                                <span class="font-medium">${(performance.page_load_time * 1000).toFixed(0)}ms</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Status Code:</span>
+                                <span class="font-medium ${performance.status_code === 200 ? 'text-green-600' : 'text-red-600'}">${performance.status_code}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-3">Technical Setup</h4>
+                        <ul class="space-y-2">
+                            <li class="flex justify-between">
+                                <span>HTTPS:</span>
+                                <span class="flex items-center">
+                                    <i class="fas ${technical.is_https ? 'fa-check text-green-500' : 'fa-times text-red-500'} mr-1"></i>
+                                    ${technical.is_https ? 'Enabled' : 'Disabled'}
+                                </span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Data Layer:</span>
+                                <span class="flex items-center">
+                                    <i class="fas ${technical.has_data_layer ? 'fa-check text-green-500' : 'fa-times text-red-500'} mr-1"></i>
+                                    ${technical.has_data_layer ? 'Detected' : 'Not Found'}
+                                </span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Mobile Optimized:</span>
+                                <span class="flex items-center">
+                                    <i class="fas ${technical.is_mobile_optimized ? 'fa-check text-green-500' : 'fa-times text-red-500'} mr-1"></i>
+                                    ${technical.is_mobile_optimized ? 'Yes' : 'No'}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function populateAnalyticsAudit(audit) {
+            const container = document.getElementById('analyticsAudit');
+            const current = audit.current_implementation;
+            
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <i class="fas fa-tag text-2xl ${current.google_tag_manager.installed ? 'text-green-500' : 'text-red-500'} mb-2"></i>
+                        <h4 class="font-semibold">Google Tag Manager</h4>
+                        <p class="text-sm ${current.google_tag_manager.installed ? 'text-green-600' : 'text-red-600'}">
+                            ${current.google_tag_manager.installed ? 'Installed' : 'Not Found'}
+                        </p>
+                        ${current.google_tag_manager.containers.length > 0 ? 
+                            `<p class="text-xs text-gray-600 mt-1">${current.google_tag_manager.containers.join(', ')}</p>` : ''}
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <i class="fas fa-chart-bar text-2xl ${current.google_analytics.ga4_installed ? 'text-green-500' : 'text-red-500'} mb-2"></i>
+                        <h4 class="font-semibold">Google Analytics 4</h4>
+                        <p class="text-sm ${current.google_analytics.ga4_installed ? 'text-green-600' : 'text-red-600'}">
+                            ${current.google_analytics.ga4_installed ? 'Installed' : 'Not Found'}
+                        </p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <i class="fas fa-shield-alt text-2xl ${audit.privacy_compliance.has_consent_solution ? 'text-green-500' : 'text-red-500'} mb-2"></i>
+                        <h4 class="font-semibold">Consent Management</h4>
+                        <p class="text-sm ${audit.privacy_compliance.has_consent_solution ? 'text-green-600' : 'text-red-600'}">
+                            ${audit.privacy_compliance.has_consent_solution ? 'Detected' : 'Not Found'}
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function populateConversionOpportunities(opportunities) {
+            const container = document.getElementById('conversionOpportunities');
+            
+            if (opportunities.summary.total_opportunities === 0) {
+                container.innerHTML = '<p class="text-gray-600">No conversion opportunities identified.</p>';
+                return;
+            }
+            
+            let html = `<div class="mb-4">
+                <p class="text-lg font-medium">${opportunities.summary.total_opportunities} conversion opportunities identified</p>
+                <p class="text-gray-600">Recommended events: ${opportunities.summary.recommended_events.join(', ')}</p>
+            </div>`;
+            
+            html += '<div class="space-y-4">';
+            opportunities.detailed_opportunities.forEach(opp => {
+                html += `
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold capitalize">${opp.type.replace('_', ' ')}</h4>
+                            <span class="px-2 py-1 text-xs font-medium rounded-full ${
+                                opp.priority === 'high' ? 'bg-red-100 text-red-800' : 
+                                opp.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' : 
+                                'bg-green-100 text-green-800'
+                            }">${opp.priority} priority</span>
+                        </div>
+                        <p class="text-gray-600 mb-2">${opp.description}</p>
+                        <div class="text-sm">
+                            <strong>Events:</strong> ${opp.recommended_events.join(', ')}
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            
+            container.innerHTML = html;
+        }
+        
+        function populateImplementationPlan(plan) {
+            const container = document.getElementById('implementationPlan');
+            const steps = plan.gtm_setup.implementation_steps;
+            
+            let html = `
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-800 mb-3">GTM Container Structure</h4>
+                    <div class="grid grid-cols-3 gap-4 text-center">
+                        <div class="bg-blue-50 p-3 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-600">${plan.gtm_setup.container_structure.tags_count}</div>
+                            <div class="text-sm text-gray-600">Tags</div>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-lg">
+                            <div class="text-2xl font-bold text-green-600">${plan.gtm_setup.container_structure.triggers_count}</div>
+                            <div class="text-sm text-gray-600">Triggers</div>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-600">${plan.gtm_setup.container_structure.variables_count}</div>
+                            <div class="text-sm text-gray-600">Variables</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 class="font-semibold text-gray-800 mb-3">Implementation Steps</h4>
+                <div class="space-y-3">
+            `;
+            
+            steps.forEach(step => {
+                html += `
+                    <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                        <div class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                            ${step.step}
+                        </div>
+                        <div class="flex-1">
+                            <h5 class="font-medium text-gray-800">${step.title}</h5>
+                            <p class="text-gray-600 text-sm">${step.description}</p>
+                            <p class="text-blue-600 text-xs mt-1">Estimated time: ${step.estimated_time}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+        
+        function populateDownloadSection(gtmFilename, reportFilename) {
+            const container = document.getElementById('downloadSection');
+            container.innerHTML = `
+                <a href="/download/${gtmFilename}" 
+                   class="flex items-center justify-center px-6 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
+                    <i class="fas fa-download mr-2"></i>
+                    Download GTM Container
+                </a>
+                <a href="/download/${reportFilename}" 
+                   class="flex items-center justify-center px-6 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200">
+                    <i class="fas fa-file-alt mr-2"></i>
+                    Download Audit Report
+                </a>
+            `;
+        }
+    </script>
+</body>
+</html>
